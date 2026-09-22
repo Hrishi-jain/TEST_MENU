@@ -1,1 +1,107 @@
 
+[
+  {
+    "id": 1,
+    "item_name": "Paneer Tikka",
+    "category": "Starters",
+    "description": "Paneer marinated with Indian spices and grilled.",
+    "dine_in_price": 220,
+    "pickup_price": 220,
+    "online_price": 250,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "item_name": "Veg Manchurian",
+    "category": "Chinese",
+    "description": "Crispy vegetable balls tossed in Manchurian sauce.",
+    "dine_in_price": 190,
+    "pickup_price": 190,
+    "online_price": 220,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 3,
+    "item_name": "Dal Tadka",
+    "category": "Dal",
+    "description": "Yellow dal tempered with garlic, cumin and spices.",
+    "dine_in_price": 180,
+    "pickup_price": 180,
+    "online_price": 210,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 4,
+    "item_name": "Paneer Butter Masala",
+    "category": "Paneer Se Paneer Tak",
+    "description": "Soft paneer in a rich creamy tomato gravy.",
+    "dine_in_price": 260,
+    "pickup_price": 260,
+    "online_price": 300,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "item_name": "Butter Naan",
+    "category": "Indian Breads",
+    "description": "Soft tandoori naan finished with butter.",
+    "dine_in_price": 55,
+    "pickup_price": 55,
+    "online_price": 65,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 6,
+    "item_name": "Veg Biryani",
+    "category": "Rice & Biryani",
+    "description": "Fragrant basmati rice cooked with vegetables and spices.",
+    "dine_in_price": 220,
+    "pickup_price": 220,
+    "online_price": 260,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 7,
+    "item_name": "Masala Papad",
+    "category": "Starters",
+    "description": "Crispy papad topped with onion, tomato and spices.",
+    "dine_in_price": 70,
+    "pickup_price": 70,
+    "online_price": 85,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  },
+  {
+    "id": 8,
+    "item_name": "Sweet Corn Soup",
+    "category": "Soup",
+    "description": "Hot and comforting sweet corn soup.",
+    "dine_in_price": 130,
+    "pickup_price": 130,
+    "online_price": 155,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
+  }
+]
