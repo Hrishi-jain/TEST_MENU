@@ -116,5 +116,18 @@
     "pickup_active": true,
     "online_active": true,
     "is_active": true
+  },
+  {
+    "id": 10,
+    "item_name": "JAIN sahab kae parathe",
+    "category": "Hrishi",
+    "description": "Jain Special",
+    "dine_in_price": 130,
+    "pickup_price": 110,
+    "online_price": 160,
+    "dine_in_active": true,
+    "pickup_active": true,
+    "online_active": true,
+    "is_active": true
   }
 ]
