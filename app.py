@@ -173,7 +173,7 @@ MENU_TEMPLATE = """<!doctype html>
 
         /* Order Mode Switcher */
         .mode-container {
-            margin-top: -22px;
+            margin-top: 16px;
             padding: 0 16px;
         }
         .mode-switch {
@@ -478,8 +478,8 @@ MENU_TEMPLATE = """<!doctype html>
 <!-- Hero Banner -->
 <div class="hero-banner text-center">
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="status-pill"><i class="bi bi-clock-fill text-warning"></i> Open • 11 AM - 11 PM</span>
-        <span class="status-pill"><i class="bi bi-star-fill text-warning"></i> 4.8 (1.2k+)</span>
+        <span class="status-pill"><i class="bi bi-clock-fill text-warning"></i> Open • 11 AM - 01 AM</span>
+        <span class="status-pill"><i class="bi bi-star-fill text-warning"></i> 4.9 (6.2k+)</span>
     </div>
     <h1 class="brand-header">🛕 VRINDAVAN DHABA</h1>
     <p class="small text-white-50 m-0 mt-1">Authentic Pure Vegetarian Culinary Experience</p>
