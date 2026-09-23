@@ -8,65 +8,6 @@ DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "menu.json"
 
 
 def load_menu():
-    if not DATA_FILE.exists():
-        return [
-            {
-                "item_name": "Paneer Butter Masala",
-                "category": "Paneer Se Paneer Tak",
-                "description": "Rich tomato, cashew & butter gravy with soft cottage cheese cubes.",
-                "dine_in_price": 280,
-                "pickup_price": 290,
-                "online_price": 310,
-                "dine_in_active": True,
-                "pickup_active": True,
-                "online_active": True,
-                "is_active": True,
-                "is_veg": True,
-                "popular": True,
-            },
-            {
-                "item_name": "Dal Makhani Handi",
-                "category": "Sabiziyaan",
-                "description": "Slow-cooked black lentils simmered overnight with butter & cream.",
-                "dine_in_price": 240,
-                "pickup_price": 250,
-                "online_price": 270,
-                "dine_in_active": True,
-                "pickup_active": True,
-                "online_active": True,
-                "is_active": True,
-                "is_veg": True,
-                "popular": True,
-            },
-            {
-                "item_name": "Crispy Veg Manchurian",
-                "category": "Starters",
-                "description": "Crispy vegetable dumplings tossed in spicy Indo-Chinese sauces.",
-                "dine_in_price": 210,
-                "pickup_price": 220,
-                "online_price": 240,
-                "dine_in_active": True,
-                "pickup_active": True,
-                "online_active": True,
-                "is_active": True,
-                "is_veg": True,
-                "popular": False,
-            },
-            {
-                "item_name": "Butter Naan",
-                "category": "Roti & Naan",
-                "description": "Traditional clay-oven tandoori naan brushed with fresh butter.",
-                "dine_in_price": 50,
-                "pickup_price": 50,
-                "online_price": 60,
-                "dine_in_active": True,
-                "pickup_active": True,
-                "online_active": True,
-                "is_active": True,
-                "is_veg": True,
-                "popular": False,
-            },
-        ]
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
