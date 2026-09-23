@@ -4,7 +4,10 @@ from pathlib import Path
 from flask import Flask, render_template_string
 
 app = Flask(__name__)
-DATA_FILE = Path(__file__).resolve().parent / "data" / "menu.json"
+
+# Base directory setup for local and serverless deployments (Vercel)
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "data" / "menu.json"
 
 
 def load_menu():
@@ -106,128 +109,143 @@ MENU_TEMPLATE = """<!doctype html>
     <title>{{ title }} | Vrindavan Dhaba</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
-    <!-- Design Assets -->
+    <!-- Fonts & CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <style>
         :root {
-            --primary-burgundy: #6B000B;
-            --dark-burgundy: #420006;
-            --accent-gold: #E5C158;
-            --light-gold: #FFF9E6;
-            --surface-bg: #F8F5EE;
-            --card-border: #EFE8D8;
-            --text-dark: #1E1E1E;
-            --text-muted: #6C757D;
-            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
-            --shadow-md: 0 8px 24px rgba(107, 0, 11, 0.08);
+            /* Royal Indian Dining Theme (Burgundy, Gold, Amber, Warm Sand) */
+            --bg-warm-sand: #FDFBF7;
+            --primary-burgundy: #4A0E17;
+            --deep-burgundy: #33080E;
+            --accent-amber: #C86A28;
+            --metallic-gold: #D4AF37;
+            
+            /* Derived Tints & Elements */
+            --card-bg: #FFFFFF;
+            --text-main: #2C1810;
+            --text-muted: #7A6258;
+            --soft-amber-bg: #FFF5EC;
+            --soft-gold-bg: #FAF5E8;
+            --shadow-subtle: 0 4px 18px rgba(74, 14, 23, 0.06);
+            --shadow-elevated: 0 10px 28px rgba(51, 8, 14, 0.16);
         }
 
         body {
-            background-color: var(--surface-bg);
+            background-color: var(--bg-warm-sand);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--text-dark);
+            color: var(--text-main);
             padding-bottom: 110px;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Hero Header */
+        /* Hero Header (Imperial Burgundy & Gold Theme) */
         .hero-banner {
-            background: linear-gradient(160deg, var(--dark-burgundy) 0%, var(--primary-burgundy) 100%);
-            color: white;
-            padding: 24px 18px 36px;
-            border-radius: 0 0 30px 30px;
+            background: linear-gradient(135deg, var(--deep-burgundy) 0%, var(--primary-burgundy) 100%);
+            color: #FFFFFF;
+            padding: 28px 20px 32px;
+            border-radius: 0 0 24px 24px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(66, 0, 6, 0.3);
+            box-shadow: var(--shadow-elevated);
         }
         .hero-banner::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            height: 3px;
+            background: linear-gradient(90deg, var(--metallic-gold) 0%, var(--accent-amber) 100%);
         }
         .brand-header {
             font-family: 'Cinzel', serif;
-            font-weight: 800;
-            color: var(--accent-gold);
-            font-size: 1.65rem;
-            letter-spacing: 1px;
+            font-weight: 900;
+            color: var(--metallic-gold);
+            font-size: 1.8rem;
+            letter-spacing: 1.2px;
             margin: 0;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         .status-pill {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(229,193,88,0.3);
-            padding: 4px 12px;
-            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 5px 14px;
+            border-radius: 30px;
             font-size: 0.78rem;
-            color: #FFF;
+            color: #FFF5EC;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            font-weight: 600;
         }
 
-        /* Order Mode Switcher */
+        /* Mode Selector Switch */
         .mode-container {
-            margin-top: 16px;
-            padding: 0 16px;
+            margin-top: -22px;
+            padding: 0 12px;
+            position: relative;
+            z-index: 10;
         }
         .mode-switch {
             background: #FFFFFF;
-            border-radius: 18px;
-            padding: 5px;
+            border-radius: 20px;
+            padding: 6px;
             display: flex;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-elevated);
+            border: 1.5px solid var(--metallic-gold);
         }
         .mode-btn {
             flex: 1;
             text-align: center;
             text-decoration: none;
-            padding: 10px 6px;
+            padding: 10px 8px;
             border-radius: 14px;
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--text-muted);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--primary-burgundy);
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
         }
         .mode-btn.active {
-            background: linear-gradient(135deg, var(--primary-burgundy), var(--dark-burgundy));
-            color: var(--accent-gold);
-            box-shadow: 0 4px 14px rgba(107, 0, 11, 0.25);
+            background: var(--primary-burgundy);
+            color: var(--metallic-gold);
+            box-shadow: 0 4px 12px rgba(74, 14, 23, 0.3);
         }
 
         /* Search Input */
         .search-box {
             position: relative;
-            margin: 18px 0 12px;
+            margin: 20px 0 14px;
         }
         .search-box input {
-            background: #FFF;
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 12px 16px 12px 42px;
+            background: #FFFFFF;
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            border-radius: 18px;
+            padding: 12px 16px 12px 44px;
             font-size: 0.92rem;
-            box-shadow: var(--shadow-sm);
+            color: var(--text-main);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.2s ease;
+        }
+        .search-box input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
         }
         .search-box input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(229,193,88,0.25);
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 0 4px rgba(200, 106, 40, 0.18);
             outline: none;
         }
         .search-box i {
             position: absolute;
-            left: 15px; top: 50%;
+            left: 16px; top: 50%;
             transform: translateY(-50%);
-            color: #888;
+            color: var(--accent-amber);
+            font-size: 1.05rem;
         }
 
         /* Category Horizontal Scroll */
@@ -235,11 +253,11 @@ MENU_TEMPLATE = """<!doctype html>
             position: sticky;
             top: 0;
             z-index: 1020;
-            background: var(--surface-bg);
+            background: rgba(253, 251, 247, 0.96);
             padding: 10px 0;
             margin: 0 -12px 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(12px);
         }
         .category-scroll {
             display: flex;
@@ -247,96 +265,127 @@ MENU_TEMPLATE = """<!doctype html>
             overflow-x: auto;
             padding: 0 16px;
             scrollbar-width: none;
+            scroll-behavior: smooth;
         }
         .category-scroll::-webkit-scrollbar { display: none; }
         .cat-chip {
             white-space: nowrap;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
-            background: #FFF;
-            border: 1px solid var(--card-border);
+            background: #FFFFFF;
+            border: 1.5px solid rgba(212, 175, 55, 0.6);
             font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.2s;
-            box-shadow: var(--shadow-sm);
-        }
-        .cat-chip.active {
-            background: var(--primary-burgundy);
-            color: #FFF;
-            border-color: var(--primary-burgundy);
-        }
-
-        /* Menu Items */
-        .category-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
             font-weight: 700;
             color: var(--primary-burgundy);
-            margin: 24px 0 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-subtle);
         }
-        .category-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--card-border);
+        .cat-chip.active {
+            background: var(--accent-amber);
+            color: #FFFFFF;
+            border-color: var(--accent-amber);
         }
 
+        /* Accordion Customization */
+        .accordion-item {
+            background: transparent;
+            border: none;
+            margin-bottom: 16px;
+        }
+        .accordion-button {
+            background: #FFFFFF;
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            border-radius: 18px !important;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary-burgundy);
+            box-shadow: var(--shadow-subtle);
+            padding: 16px 20px;
+        }
+        .accordion-button:not(.collapsed) {
+            background: var(--soft-gold-bg);
+            color: var(--primary-burgundy);
+            box-shadow: none;
+        }
+
+        .cat-count-badge {
+            background: var(--primary-burgundy);
+            color: var(--metallic-gold);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .accordion-body {
+            padding: 12px 0 0 0;
+        }
+
+        /* Food Cards */
         .food-card {
-            background: #FFF;
+            background: #FFFFFF;
             border-radius: 18px;
             padding: 16px;
-            margin-bottom: 14px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-sm);
+            margin-bottom: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-subtle);
             display: flex;
             justify-content: space-between;
-            gap: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            gap: 14px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-        
-        .veg-icon {
+
+        /* Food Veg/Non-Veg Indicators */
+        .food-type-icon {
             width: 16px; height: 16px;
-            border: 2px solid #2E7D32;
-            padding: 2px;
+            border-radius: 4px;
             display: inline-flex;
             align-items: center; justify-content: center;
-            border-radius: 3px;
+            padding: 2px;
+            flex-shrink: 0;
         }
-        .veg-icon::after {
+        .food-type-icon.veg { border: 2px solid #2E7D32; }
+        .food-type-icon.veg::after {
             content: '';
             width: 6px; height: 6px;
             background: #2E7D32;
             border-radius: 50%;
         }
+        .food-type-icon.nonveg { border: 2px solid #C62828; }
+        .food-type-icon.nonveg::after {
+            content: '';
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 7px solid #C62828;
+        }
 
         .popular-tag {
             font-size: 0.68rem;
-            background: var(--light-gold);
-            color: #8A6D00;
-            font-weight: 700;
+            background: var(--soft-amber-bg);
+            color: var(--accent-amber);
+            font-weight: 800;
             padding: 2px 8px;
             border-radius: 6px;
             display: inline-flex;
             align-items: center;
             gap: 3px;
+            border: 1px solid rgba(200, 106, 40, 0.3);
         }
 
         .food-name {
             font-weight: 700;
-            font-size: 1rem;
-            color: #111;
+            font-size: 0.98rem;
+            color: var(--primary-burgundy);
             margin-top: 4px;
         }
         .food-desc {
             font-size: 0.8rem;
             color: var(--text-muted);
             margin-top: 4px;
-            line-height: 1.35;
+            line-height: 1.4;
         }
 
         .card-action-side {
@@ -352,20 +401,20 @@ MENU_TEMPLATE = """<!doctype html>
             color: var(--primary-burgundy);
         }
 
+        /* Controls */
         .add-btn {
-            background: var(--light-gold);
-            border: 1px solid var(--accent-gold);
-            color: var(--primary-burgundy);
-            font-weight: 700;
+            background: var(--soft-amber-bg);
+            border: 1.5px solid var(--accent-amber);
+            color: var(--accent-amber);
+            font-weight: 800;
             font-size: 0.82rem;
-            padding: 6px 18px;
+            padding: 6px 20px;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
-        .add-btn:hover {
-            background: var(--accent-gold);
-            color: #000;
+        .add-btn:active {
+            transform: scale(0.95);
         }
 
         .qty-controls {
@@ -374,14 +423,15 @@ MENU_TEMPLATE = """<!doctype html>
             background: var(--primary-burgundy);
             color: white;
             border-radius: 12px;
-            padding: 3px;
+            padding: 2px;
+            box-shadow: 0 4px 10px rgba(74, 14, 23, 0.2);
         }
         .qty-btn {
             background: none;
             border: none;
-            color: white;
-            width: 26px; height: 26px;
-            font-weight: 700;
+            color: var(--metallic-gold);
+            width: 28px; height: 28px;
+            font-weight: 800;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
         }
@@ -389,35 +439,35 @@ MENU_TEMPLATE = """<!doctype html>
             font-size: 0.85rem;
             font-weight: 700;
             padding: 0 6px;
+            color: #FFFFFF;
         }
 
         /* Floating Cart Bottom Bar */
         .cart-float-bar {
             position: fixed;
-            bottom: 16px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 32px);
             max-width: 600px;
-            background: linear-gradient(135deg, var(--dark-burgundy), var(--primary-burgundy));
-            border: 1px solid var(--accent-gold);
+            background: var(--primary-burgundy);
+            border: 1.5px solid var(--metallic-gold);
             color: white;
             border-radius: 20px;
             padding: 12px 20px;
             display: none;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-elevated);
             z-index: 1030;
-            transition: opacity 0.2s ease, transform 0.2s ease;
         }
         .view-cart-btn {
-            background: var(--accent-gold);
-            color: var(--dark-burgundy);
+            background: var(--accent-amber);
+            color: #FFFFFF;
             border: none;
             font-weight: 800;
             font-size: 0.85rem;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 12px;
             cursor: pointer;
         }
@@ -428,14 +478,11 @@ MENU_TEMPLATE = """<!doctype html>
             max-height: 85vh;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
-            background: #FFF;
+            background: var(--bg-warm-sand);
             z-index: 1060 !important;
         }
-        .offcanvas-backdrop {
-            z-index: 1050 !important;
-        }
         .cart-modal-header {
-            border-bottom: 1px solid var(--card-border);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding: 18px 20px;
         }
         .cart-modal-body {
@@ -448,28 +495,36 @@ MENU_TEMPLATE = """<!doctype html>
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            border-bottom: 1px dashed var(--card-border);
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
         }
         .bill-details {
-            background: var(--surface-bg);
+            background: #FFFFFF;
+            border: 1px solid rgba(212, 175, 55, 0.5);
             border-radius: 16px;
-            padding: 14px;
+            padding: 16px;
             margin-top: 16px;
         }
         .bill-row {
             display: flex;
             justify-content: space-between;
             font-size: 0.88rem;
-            margin-bottom: 6px;
-            color: #555;
+            margin-bottom: 8px;
+            color: var(--text-muted);
         }
         .bill-row.total {
             font-size: 1.05rem;
             font-weight: 800;
             color: var(--primary-burgundy);
-            border-top: 1px solid var(--card-border);
-            padding-top: 8px;
-            margin-top: 8px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 10px;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -478,8 +533,8 @@ MENU_TEMPLATE = """<!doctype html>
 <!-- Hero Banner -->
 <div class="hero-banner text-center">
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="status-pill"><i class="bi bi-clock-fill text-warning"></i> Open • 11 AM - 01 AM</span>
-        <span class="status-pill"><i class="bi bi-star-fill text-warning"></i> 4.9 (6.2k+)</span>
+        <span class="status-pill"><i class="bi bi-clock-fill me-1"></i> Open • 11 AM - 01 AM</span>
+        <span class="status-pill"><i class="bi bi-star-fill me-1" style="color: var(--metallic-gold);"></i> 4.9 (8.2k+)</span>
     </div>
     <h1 class="brand-header">🛕 VRINDAVAN DHABA</h1>
     <p class="small text-white-50 m-0 mt-1">Authentic Pure Vegetarian Culinary Experience</p>
@@ -502,57 +557,69 @@ MENU_TEMPLATE = """<!doctype html>
         </div>
     </div>
 
-    <!-- Live Search -->
+    <!-- Search Box -->
     <div class="search-box">
         <i class="bi bi-search"></i>
         <input type="text" id="searchInput" class="form-control" placeholder="Search dish name, dal, paneer..." onkeyup="filterMenu()">
     </div>
 
-    <!-- Sticky Category Nav -->
+    <!-- Sticky Category Navigation -->
     <div class="category-scroll-wrapper">
         <div class="category-scroll" id="categoryScroll">
             {% for category in categories.keys() %}
-            <a href="#cat-{{ loop.index }}" class="cat-chip {{ 'active' if loop.first else '' }}">{{ category }}</a>
+            <a href="#cat-{{ loop.index }}" class="cat-chip {{ 'active' if loop.first else '' }}" onclick="setActiveChip(this)">{{ category }}</a>
             {% endfor %}
         </div>
     </div>
 
     <!-- Menu Items -->
-    <div id="menuContainer">
+    <div class="accordion" id="menuAccordion">
         {% for category, items in categories.items() %}
-        <div class="category-group" id="cat-{{ loop.index }}">
-            <div class="category-title">
-                <span>{{ category }}</span>
-                <span class="badge bg-light text-dark fs-6 font-monospace" style="border:1px solid #ddd;">{{ items|length }}</span>
-            </div>
+        <div class="accordion-item category-group" id="cat-{{ loop.index }}">
+            <h2 class="accordion-header" id="heading-{{ loop.index }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop.index }}" aria-expanded="true" aria-controls="collapse-{{ loop.index }}">
+                    <span class="cat-count-badge me-2">{{ items|length }}</span>
+                    <span class="me-auto">{{ category }}</span>
+                </button>
+            </h2>
+            <div id="collapse-{{ loop.index }}" class="accordion-collapse collapse show" aria-labelledby="heading-{{ loop.index }}">
+                <div class="accordion-body">
+                    {% for item in items %}
+                    <div class="food-card" data-id="{{ item.item_name | lower | replace(' ', '-') }}" data-name="{{ item.item_name }}" data-price="{{ item.price }}">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="food-type-icon {{ 'veg' if item.is_veg else 'nonveg' }}"></span>
+                                {% if item.popular %}
+                                <span class="popular-tag"><i class="bi bi-fire"></i> Bestseller</span>
+                                {% endif %}
+                            </div>
+                            <div class="food-name">{{ item.item_name }}</div>
+                            <div class="food-desc">{{ item.description or 'Prepared with fresh ingredients and authentic dhaba spices.' }}</div>
+                        </div>
 
-            {% for item in items %}
-            <div class="food-card" data-id="{{ item.item_name | lower | replace(' ', '-') }}" data-name="{{ item.item_name }}" data-price="{{ item.price }}">
-                <div class="flex-grow-1">
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="veg-icon"></span>
-                        {% if item.popular %}
-                        <span class="popular-tag"><i class="bi bi-fire"></i> Bestseller</span>
-                        {% endif %}
+                        <div class="card-action-side">
+                            <div class="price-text">₹{{ "%.0f"|format(item.price) }}</div>
+                            
+                            <button class="add-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, 1)">ADD</button>
+                            <div class="qty-controls" id="qty-ctrl-{{ item.item_name | lower | replace(' ', '-') }}">
+                                <button class="qty-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, -1)">-</button>
+                                <span class="qty-val" id="qty-val-{{ item.item_name | lower | replace(' ', '-') }}">1</span>
+                                <button class="qty-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, 1)">+</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="food-name">{{ item.item_name }}</div>
-                    <div class="food-desc">{{ item.description or 'Prepared with fresh ingredients and authentic dhaba spices.' }}</div>
-                </div>
-
-                <div class="card-action-side">
-                    <div class="price-text">₹{{ "%.0f"|format(item.price) }}</div>
-                    
-                    <button class="add-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, 1)">ADD</button>
-                    <div class="qty-controls" id="qty-ctrl-{{ item.item_name | lower | replace(' ', '-') }}">
-                        <button class="qty-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, -1)">-</button>
-                        <span class="qty-val" id="qty-val-{{ item.item_name | lower | replace(' ', '-') }}">1</span>
-                        <button class="qty-btn" onclick="updateQty('{{ item.item_name | lower | replace(' ', '-') }}', '{{ item.item_name }}', {{ item.price }}, 1)">+</button>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
         </div>
         {% endfor %}
+    </div>
+
+    <!-- Empty Search Results State -->
+    <div class="no-results" id="noResults">
+        <i class="bi bi-search-heart display-4 text-muted"></i>
+        <h6 class="mt-3 font-semibold">No matching dishes found</h6>
+        <p class="small">Try searching for something else like 'Paneer' or 'Naan'.</p>
     </div>
 
 </div>
@@ -563,10 +630,10 @@ MENU_TEMPLATE = """<!doctype html>
         <div class="fw-bold" id="cartCount">0 ITEMS SELECTED</div>
         <div class="small opacity-75" id="cartTotal">Total: ₹0</div>
     </div>
-    <button class="view-cart-btn" data-bs-toggle="offcanvas" data-bs-target="#cartModal">VIEW ORDER <i class="bi bi-arrow-right"></i></button>
+    <button class="view-cart-btn" data-bs-toggle="offcanvas" data-bs-target="#cartModal">VIEW ORDER <i class="bi bi-arrow-right ms-1"></i></button>
 </div>
 
-<!-- Slide-Up View Cart Drawer / Modal -->
+<!-- Slide-Up View Cart Drawer -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cartModal">
     <div class="cart-modal-header d-flex justify-content-between align-items-center">
         <div>
@@ -586,7 +653,7 @@ MENU_TEMPLATE = """<!doctype html>
                 <span id="billSubtotal">₹0</span>
             </div>
             <div class="bill-row">
-                <span>Taxes & Service Charge (5%)</span>
+                <span>Taxes & Charges (5%)</span>
                 <span id="billTax">₹0</span>
             </div>
             <div class="bill-row total">
@@ -596,18 +663,21 @@ MENU_TEMPLATE = """<!doctype html>
         </div>
 
         <div class="mt-4 d-flex gap-2">
-            <button class="btn btn-outline-secondary flex-grow-1 py-2 fw-semibold" onclick="clearCart()" style="border-radius: 12px;">Clear Cart</button>
+            <button class="btn btn-outline-secondary flex-grow-1 py-2 fw-semibold" onclick="clearCart()" style="border-radius: 12px; border-color: rgba(212, 175, 55, 0.6);">Clear Cart</button>
             <button class="btn text-white py-2 fw-bold" style="background: var(--primary-burgundy); border-radius: 12px; flex:2;" onclick="placeOrder()">Place Order <i class="bi bi-check-circle-fill ms-1"></i></button>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap 5 JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // Cart Data Object
     let cart = {};
+
+    function setActiveChip(element) {
+        document.querySelectorAll('.cat-chip').forEach(chip => chip.classList.remove('active'));
+        element.classList.add('active');
+    }
 
     function updateQty(id, name, price, change) {
         if (!cart[id]) {
@@ -685,11 +755,11 @@ MENU_TEMPLATE = """<!doctype html>
             row.className = 'cart-item-row';
             row.innerHTML = `
                 <div>
-                    <div class="fw-bold">${item.name}</div>
+                    <div class="fw-bold" style="color: var(--primary-burgundy);">${item.name}</div>
                     <small class="text-muted">₹${item.price} x ${item.count}</small>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                    <span class="fw-bold text-dark">₹${itemTotal}</span>
+                    <span class="fw-bold" style="color: var(--primary-burgundy);">₹${itemTotal}</span>
                     <div class="qty-controls" style="display: flex;">
                         <button class="qty-btn" onclick="updateQty('${item.id}', '${item.name}', ${item.price}, -1)">-</button>
                         <span class="qty-val">${item.count}</span>
@@ -722,9 +792,10 @@ MENU_TEMPLATE = """<!doctype html>
     }
 
     function filterMenu() {
-        let query = document.getElementById('searchInput').value.toLowerCase();
+        let query = document.getElementById('searchInput').value.toLowerCase().trim();
         let cards = document.querySelectorAll('.food-card');
         let groups = document.querySelectorAll('.category-group');
+        let anyVisible = false;
 
         cards.forEach(card => {
             let name = card.getAttribute('data-name').toLowerCase();
@@ -736,16 +807,30 @@ MENU_TEMPLATE = """<!doctype html>
         });
 
         groups.forEach(group => {
+            let collapseEl = group.querySelector('.accordion-collapse');
+            let bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
+            if (!bsCollapse) {
+                bsCollapse = new bootstrap.Collapse(collapseEl, { toggle: false });
+            }
+
             let visibleCards = group.querySelectorAll('.food-card[style*="display: flex"]');
-            if (query !== '' && visibleCards.length === 0) {
-                group.style.display = 'none';
+            if (query !== '') {
+                if (visibleCards.length === 0) {
+                    group.style.display = 'none';
+                } else {
+                    group.style.display = 'block';
+                    bsCollapse.show();
+                    anyVisible = true;
+                }
             } else {
                 group.style.display = 'block';
+                anyVisible = true;
             }
         });
+
+        document.getElementById('noResults').style.display = (query !== '' && !anyVisible) ? 'block' : 'none';
     }
 
-    // Hide/Show bottom bar when cart offcanvas opens/closes
     document.addEventListener('DOMContentLoaded', () => {
         const cartModal = document.getElementById('cartModal');
         const cartBar = document.getElementById('cartBar');
@@ -794,4 +879,4 @@ def online():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    app.run(host="0.0.0.0", port=5022, debug=True)
