@@ -1,7 +1,7 @@
 [
-{"id": 1,"item_name": "250 Ml C.d.","category": "Kuch Thanda","description": "","dine_in_price": 21,"pickup_price": 21,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
-{"id": 2,"item_name": "250m Ml C.d.","category": "Kuch Thanda","description": "","dine_in_price": 21,"pickup_price": 0,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
-{"id": 3,"item_name": "650ml Coldrink","category": "Kuch Thanda","description": "","dine_in_price": 36.8,"pickup_price": 36.8,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
+{"id": 1,"item_name": "250 Ml C.d.","category": "Kuch Thanda","description": "","dine_in_price": 20,"pickup_price": 20,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
+{"id": 2,"item_name": "250m Ml C.d.","category": "Kuch Thanda","description": "","dine_in_price": 20,"pickup_price": 0,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
+{"id": 3,"item_name": "650ml Coldrink","category": "Kuch Thanda","description": "","dine_in_price": 35,"pickup_price": 35,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
 {"id": 4,"item_name": "Aaloo Jira","category": "Sabiziyaan","description": "","dine_in_price": 0,"pickup_price": 0,"online_price":180,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
 {"id": 5,"item_name": "Aloo Baigan","category": "Sabiziyaan","description": "","dine_in_price": 150,"pickup_price": 0,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
 {"id": 6,"item_name": "Aloo Chole","category": "Sabiziyaan","description": "","dine_in_price": 150,"pickup_price": 130,"online_price":0,"dine_in_active": true,"pickup_active": true,"online_active": true,"is_active": true},
