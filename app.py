@@ -717,7 +717,7 @@ MENU_TEMPLATE = """<!doctype html>
     }
 
     function placeOrder() {
-        alert('To Place Order successfully! Do Call 9713009097 Thank you for ordering at Vrindavan Dhaba.');
+        alert('Do Call 9713009097 To Place Order successfully! Thank you for ordering at Vrindavan Dhaba.');
         clearCart();
     }
 
