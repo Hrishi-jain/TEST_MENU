@@ -4,7 +4,7 @@ from pathlib import Path
 from flask import Flask, render_template_string
 
 app = Flask(__name__)
-DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "menu.json"
+DATA_FILE = Path(__file__).resolve().parent / "data" / "menu.json"
 
 
 def load_menu():
