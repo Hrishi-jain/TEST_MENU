@@ -6,7 +6,7 @@ from flask import Flask, render_template_string, redirect, url_for
 
 app = Flask(__name__)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "data" / "menu.json"
 
 def slugify(text):
