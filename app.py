@@ -558,7 +558,7 @@ color:var(--muted)
 <span class="status-pill"><i class="bi bi-clock-fill me-1"></i>Open • 11 AM - 12 PM</span>
 <span class="status-pill"><i class="bi bi-star-fill me-1" style="color:var(--gold)"></i>4.9 (9.2k+)</span>
 </div>
-<h1 class="brand-header">🛕 VRINDAVAN DHABA Testing</h1>
+<h1 class="brand-header">🛕 VRINDAVAN DHABA</h1>
 <p class="small text-white-50 m-0 mt-1">Authentic Pure Vegetarian Culinary Experience</p>
 </div>
 
